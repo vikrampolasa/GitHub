@@ -195,7 +195,7 @@ CREATE OR REPLACE PACKAGE BODY db_log AS
             INTO msg_trace_level
         FROM dual;
         
-        dbms_output.put_line(nvl(db_log.get_trc_flg, 9999)||' - '|| nvl(msg_trace_level, 999));
+        --dbms_output.put_line(nvl(db_log.get_trc_flg, 9999)||' - '|| nvl(msg_trace_level, 999));
         
         IF db_log.get_trc_flg >= msg_trace_level THEN 
             SELECT UPGRADE_SEQUENCE.NEXTVAL INTO out_step_key FROM dual; 
@@ -488,6 +488,8 @@ END;
     
     step_nm := 'Initial step';
     db_log.log_msg('Info', d_dbdt_key, proc_nm, step_nm, d_step_key); 
+    
+    dbms_session.sleep(5); 
     
     step_nm := 'Second step';
     db_log.log_msg('Info', d_dbdt_key, proc_nm, step_nm, d_step_key); 
